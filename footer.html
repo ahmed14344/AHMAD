@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ذيل الموقع - تأجير السعودية</title>
+<style>
+  :root{
+    --green:#006C35; --green-700:#065F46; --sand:#C2A878;
+    --ink:#1F2937; --paper:#F8F9F7; --muted:#9CA3AF;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:transparent}
+
+  .footer{
+    position:relative;
+    color:#E5E7EB;
+    padding:2rem 1rem 1rem;
+    border-top:1px solid rgba(255,255,255,.1);
+    overflow:hidden;
+  }
+  /* الخلفية بالصورة */
+  .footer::before{
+    content:"";
+    position:absolute; inset:0;
+    background:url("lacturey.jpg") center/cover no-repeat;
+    z-index:0;
+  }
+  /* التراكب الداكن لتحسين التباين */
+  .footer::after{
+    content:"";
+    position:absolute; inset:0;
+    background:rgba(0,0,0,0.65);
+    z-index:1;
+  }
+
+  .footer .content{
+    position:relative;
+    z-index:2;
+    max-width:1200px;margin:auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:1.25rem;
+  }
+  .brand{display:flex;gap:.7rem;align-items:center;margin-bottom:.5rem}
+  .logo{width:36px;height:36px;border-radius:10px;background: radial-gradient(120px 120px at 20% 20%, var(--green), var(--green-700));display:grid;place-items:center;color:#fff;font-weight:800}
+  .title{font-weight:800;color:#fff}
+  .muted{color:#d1d5db;font-size:.95rem}
+  .col a{display:block;color:#F3F4F6;padding:.25rem 0}
+  .col a:hover{color:#fff}
+
+  .bottom{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.25);margin-top:1rem;padding-top:1rem;font-size:.9rem;color:#d1d5db}
+  .badge{display:inline-flex;gap:.4rem;align-items:center;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:.35rem .6rem}
+
+  @media (max-width:880px){ .footer .content{grid-template-columns:1fr 1fr} }
+  @media (max-width:540px){ .footer .content{grid-template-columns:1fr} .bottom{flex-direction:column;gap:.6rem} }
+</style>
+</head>
+<body>
+  <footer class="footer" role="contentinfo">
+    <div class="content">
+      <div class="col">
+        <div class="brand">
+          <div class="logo">ت</div>
+          <div>
+            <div class="title">تأجير السعودية</div>
+            <div class="muted">تجربة حجز موثوقة وسهلة عبر المملكة</div>
+          </div>
+        </div>
+        <div class="muted">📍 الرياض، المملكة العربية السعودية</div>
+        <div class="muted">📞 <a href="tel:+9665XXXXXXX">+966-5-XXXX-XXX</a></div>
+        <div class="muted">✉️ <a href="mailto:hello@tajir.sa">hello@tajir.sa</a></div>
+      </div>
+
+      <div class="col">
+        <div class="title">الشركة</div>
+        <a href="#">من نحن</a>
+        <a href="#">شروط الخدمة</a>
+        <a href="#">السياسة الخصوصية</a>
+        <a href="#">الوظائف</a>
+      </div>
+
+      <div class="col">
+        <div class="title">الدعم</div>
+        <a href="#faq">الأسئلة الشائعة</a>
+        <a href="#contact">تواصل معنا</a>
+        <a href="#">مراكز الفروع</a>
+      </div>
+
+      <div class="col">
+        <div class="title">تابعنا</div>
+        <a href="#" aria-label="Twitter">X / تويتر</a>
+        <a href="#" aria-label="Instagram">إنستغرام</a>
+        <a href="#" aria-label="LinkedIn">لينكدإن</a>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div>© <span id="year"></span> تأجير السعودية. جميع الحقوق محفوظة.</div>
+      <div class="badge" aria-label="دفع آمن">
+        🔐 <span>دفع آمن عبر HTTPS</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // تحديث السنة تلقائياً
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

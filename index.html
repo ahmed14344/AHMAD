@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>تأجيري — تأجير مركبات راقٍ في السعودية</title>
+<meta name="description" content="تأجيري — احجز سيارتك بثقة داخل المملكة: أسطول حديث، تأمين شامل، دعم على مدار الساعة." />
+<link rel="canonical" href="https://example.com/" />
+
+<!-- CSP مُحدّثة للسماح بالوسائط -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; style-src 'unsafe-inline' 'self'; script-src 'self'; media-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'">
+
+<style>
+  :root{
+    --brand:#006C35; --charcoal:#0F172A; --sand:#F2EDE4; --gold:#C7A144; --white:#fff;
+    --muted:#475569;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Kufi Arabic","Tajawal",Arial,sans-serif;color:var(--charcoal);background:var(--sand)}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1200px;margin-inline:auto;padding:16px}
+
+  /* نقاط تركيب القوالب */
+  #headerMount, #footerMount{min-height:1px}
+
+  /* ====== HERO مع فيديو خلفية ====== */
+  .hero{
+    position:relative; overflow:hidden; border-radius:22px;
+    box-shadow: 0 10px 30px rgba(0,108,53,.12);
+    isolation:isolate; /* لضمان تكديس سليم للطبقات */
+    min-height: 56vh;
+    background:#000; /* خلفية احتياط */
+  }
+  .hero-video{
+    position:absolute; inset:0; z-index:0;
+  }
+  .hero-video video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    filter:brightness(.55) contrast(1.05) saturate(1.05); /* تغميق خفيف لظهور النص */
+  }
+  /* طبقة تدرّج ناعم أعلى الفيديو (للقراءة) */
+  .hero::after{
+    content:""; position:absolute; inset:0; z-index:1;
+    background: radial-gradient(80% 60% at 70% 30%, rgba(0,0,0,.15), transparent 60%),
+                linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.05) 35%, transparent 60%);
+    pointer-events:none;
+  }
+  .hero-content{
+    position:relative; z-index:2; /* فوق الفيديو */
+    padding:28px; color:#fff; display:grid; gap:16px;
+    align-content:center; min-height:56vh;
+  }
+  .hero-content .badge{
+    display:inline-block;background:var(--brand);color:#fff;padding:6px 10px;border-radius:999px;font-size:14px;
+    box-shadow:0 8px 16px rgba(0,108,53,.35);
+  }
+  .hero-content h1{margin:0;font-size:34px;line-height:1.2}
+  .hero-content p{margin:0;color:#e6f6ec;max-width:60ch}
+
+  /* نموذج الحجز السريع */
+  .reserve{
+    display:grid; gap:12px; grid-template-columns:repeat(12,1fr);
+    background:#fff; border:1px solid rgba(15,23,42,.08); border-radius:16px; padding:12px;
+  }
+  .field{grid-column:span 3; display:flex; flex-direction:column; gap:6px}
+  .field label{font-size:14px;color:var(--muted)}
+  .field input, .field select{
+    padding:12px;border:1px solid rgba(15,23,42,.15);border-radius:12px;background:var(--sand)
+  }
+  .reserve .btn{
+    grid-column:span 12; align-self:end;
+    background:linear-gradient(135deg, var(--brand), #028A48);
+    color:#fff; padding:14px; border:none; border-radius:14px; font-weight:800; letter-spacing:.3px;
+    box-shadow:0 10px 22px rgba(0,108,53,.25); cursor:pointer;
+  }
+  @media(min-width:900px){ .reserve .btn{grid-column:span 2} }
+  @media (max-width:900px){
+    .field{grid-column:span 6}
+  }
+
+  /* أقسام عامة */
+  .section{margin:28px 0}
+  .section h2{margin:0 0 8px}
+  .grid{display:grid; gap:14px; grid-template-columns:repeat(12,1fr)}
+  .card{grid-column:span 4; background:#fff; border:1px solid rgba(15,23,42,.08); border-radius:18px; overflow:hidden}
+  .card .img{aspect-ratio:16/9; background:linear-gradient(135deg,#CBD5E1,#E2E8F0)}
+  .card .body{padding:12px}
+  .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(0,108,53,.08); color:var(--brand); font-weight:700; font-size:12px}
+  .price{font-weight:800}
+  .cta-inline{display:inline-block;margin-top:8px;color:var(--brand);font-weight:700}
+
+  .strip{
+    background:#fff;border:1px solid rgba(15,23,42,.08);border-radius:18px;padding:16px;display:grid;gap:16px;grid-template-columns:repeat(12,1fr)
+  }
+  .strip .item{grid-column:span 3}
+  @media (max-width:900px){ .strip .item{grid-column:span 12} }
+
+  :focus-visible{outline:3px solid #94D3A2; outline-offset:2px}
+
+  /* زر تشغيل احتياطي يظهر فقط عند منع التشغيل التلقائي */
+  .hero-play-fallback{
+    position:absolute; inset:auto 16px 16px auto; z-index:3;
+    display:none; padding:10px 14px; border:none; border-radius:12px;
+    background:var(--gold); color:#111; font-weight:800; cursor:pointer;
+    box-shadow:0 10px 22px rgba(0,0,0,.25);
+  }
+  .show-fallback .hero-play-fallback{ display:inline-block; }
+</style>
+</head>
+<body>
+  <!-- استدعاء القوالب -->
+  <div id="headerMount"></div>
+
+  <main class="container" id="main" tabindex="-1">
+    <!-- ====== بانر الفيديو ====== -->
+    <section class="hero" aria-label="بانر رئيسي بفيديو">
+      <div class="hero-video" aria-hidden="true">
+        <!-- ضع الملف C:\Users\rokoo\ahmad\sccc.mp4 بجوار index.html ثم استخدم المسار النسبي التالي -->
+        <video id="bgVideo" muted playsinline loop preload="metadata" poster=""
+               aria-hidden="true">
+          <source src="sccc.mp4" type="video/mp4" />
+          متصفحك لا يدعم فيديو HTML5.
+        </video>
+      </div>
+
+      <div class="hero-content">
+        <span class="badge">تجربة موثوقة داخل المملكة</span>
+        <h1>استأجر مركبتك بثقة مع <span style="color:var(--brand);font-weight:900">تأجيري</span></h1>
+        <p>أسطول حديث، تأمين شامل، وخدمة عملاء 24/7 في جميع مدن السعودية.</p>
+
+        <!-- نموذج الحجز السريع أعلى الفيديو -->
+        <form class="reserve" id="reserveForm" aria-label="نموذج الحجز السريع">
+          <div class="field">
+            <label for="city">المدينة</label>
+            <select id="city" required>
+              <option value="">اختر المدينة</option>
+              <option>الرياض</option><option>جدة</option><option>الدمام</option><option>مكة</option><option>المدينة المنورة</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pick">تاريخ الاستلام</label>
+            <input id="pick" type="date" required />
+          </div>
+          <div class="field">
+            <label for="drop">تاريخ الإرجاع</label>
+            <input id="drop" type="date" required />
+          </div>
+          <div class="field">
+            <label for="type">النوع</label>
+            <select id="type" required>
+              <option value="">اختر الفئة</option>
+              <option>SUV</option><option>سيدان</option><option>اقتصادي</option><option>فخم</option><option>عائلي</option>
+            </select>
+          </div>
+          <button class="btn" type="submit" aria-label="ابحث عن مركبات متاحة">ابحث عن مركبات متاحة</button>
+        </form>
+      </div>
+
+      <!-- زر احتياطي في حال منع التشغيل التلقائي -->
+      <button class="hero-play-fallback" id="playVideoBtn" type="button" aria-label="تشغيل الفيديو">تشغيل الفيديو</button>
+    </section>
+
+    <!-- عروض -->
+    <section class="section" id="offers" aria-label="عروض الأسبوع">
+      <h2>عروض مميزة</h2>
+      <p style="color:var(--muted)">خصومات على فئات مختارة — تسليم واسترجاع مرن.</p>
+      <div class="grid">
+        <article class="card">
+          <div class="img" role="img" aria-label="عرض SUV"></div>
+          <div class="body">
+            <span class="pill">خصم 20%</span>
+            <h3>SUV — عائلي</h3>
+            <div class="price">ابتداءً من 189 ر.س/يوم</div>
+            <a class="cta-inline" href="#reserve">احجز العرض</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="img" role="img" aria-label="عرض اقتصادي"></div>
+          <div class="body">
+            <span class="pill">وقود موفر</span>
+            <h3>اقتصادي — مدينة</h3>
+            <div class="price">ابتداءً من 99 ر.س/يوم</div>
+            <a class="cta-inline" href="#reserve">احجز العرض</a>
+          </div>
+        </article>
+        <article class="card">
+          <div class="img" role="img" aria-label="عرض فخم"></div>
+          <div class="body">
+            <span class="pill">تأمين شامل</span>
+            <h3>فخم — تجربة راقية</h3>
+            <div class="price">ابتداءً من 399 ر.س/يوم</div>
+            <a class="cta-inline" href="#reserve">احجز العرض</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- الأسطول -->
+    <section class="section" id="fleet" aria-label="أسطول المركبات">
+      <h2>الأسطول</h2>
+      <div class="strip">
+        <div class="item"><strong>SUV</strong><div class="muted">مثالي للرحلات والعائلات</div></div>
+        <div class="item"><strong>سيدان</strong><div class="muted">راحة واقتصاد للاستخدام اليومي</div></div>
+        <div class="item"><strong>فخم</strong><div class="muted">رفاهية عالية ومزايا متقدمة</div></div>
+        <div class="item"><strong>بيك أب</strong><div class="muted">تحمّل وأداء للأعمال</div></div>
+      </div>
+    </section>
+
+    <!-- الفروع -->
+    <section class="section" id="locations" aria-label="الفروع">
+      <h2>الفروع</h2>
+      <p class="muted">مطار الملك خالد، مطار الملك عبدالعزيز، الدمام، الخبر، مكة، المدينة المنورة… والمزيد.</p>
+    </section>
+
+    <!-- FAQ مختصر -->
+    <section class="section" id="faq" aria-label="الأسئلة الشائعة">
+      <h2>الأسئلة الشائعة</h2>
+      <details><summary>ما متطلبات الاستئجار؟</summary><div>هوية سارية، رخصة قيادة سارية، وبطاقة ائتمانية للتأمين.</div></details>
+      <details><summary>هل يشمل السعر تأمينًا؟</summary><div>نعم، تتوفر خيارات تأمين متعددة ويمكن ترقيتها أثناء الحجز.</div></details>
+    </section>
+
+    <div id="terms"></div>
+    <div id="privacy"></div>
+  </main>
+
+  <div id="footerMount"></div>
+
+<script>
+/* استدعاء القوالب header/footer بأمان */
+(async function mountPartials(){
+  const headerMount = document.getElementById('headerMount');
+  const footerMount = document.getElementById('footerMount');
+
+  async function loadInto(el, path){
+    try{
+      const res = await fetch(path, {cache:'no-store', credentials:'same-origin'});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const txt = await res.text();
+
+      // تعقيم بسيط: إزالة سكربتات خارجية أو وسوم ضارة
+      const sanitized = txt.replace(/<script[^>]*src=.+?<\/script>/gis,'')
+                           .replace(/on\w+="[^"]*"/gi,'');
+      el.innerHTML = sanitized;
+    }catch(err){
+      el.innerHTML = `<div style="padding:12px;background:#fff;border:1px solid rgba(15,23,42,.1);border-radius:12px">تعذّر تحميل الجزء: ${path}</div>`;
+      console.error('Partial load error', err);
+    }
+  }
+
+  await Promise.all([
+    loadInto(headerMount, 'header.html'),
+    loadInto(footerMount, 'footer.html')
+  ]);
+})();
+
+/* نموذج الحجز: تحقق الإدخالات */
+(function(){
+  const f = document.getElementById('reserveForm');
+  const city = document.getElementById('city');
+  const pick = document.getElementById('pick');
+  const drop = document.getElementById('drop');
+  const type = document.getElementById('type');
+
+  function toISO(d){ return new Date(d).toISOString().split('T')[0]; }
+
+  f?.addEventListener('submit', function(e){
+    e.preventDefault();
+    const c = (city.value||'').trim();
+    const p = pick.value;
+    const d = drop.value;
+    const t = (type.value||'').trim();
+
+    if(!c || !p || !d || !t){ alert('يرجى إكمال جميع الحقول.'); return; }
+    if(isNaN(new Date(p)) || isNaN(new Date(d))){ alert('تواريخ غير صالحة.'); return; }
+    if(new Date(d) <= new Date(p)){ alert('تاريخ الإرجاع يجب أن يكون بعد الاستلام.'); return; }
+
+    // محاكاة إرسال — اربطها لاحقاً بواجهة API آمنة عبر HTTPS + OAuth2/JWT
+    window.location.hash = 'fleet';
+    alert('تم استلام طلبك! سيتم إظهار المركبات المتاحة وفق المعايير المحددة.');
+  });
+
+  const today = new Date().toISOString().split('T')[0];
+  pick.min = today; drop.min = today;
+})();
+
+/* فيديو الخلفية: تشغيل تلقائي + توفير الموارد + معالجة منع التشغيل */
+(function(){
+  const v = document.getElementById('bgVideo');
+  const hero = document.querySelector('.hero');
+  const playBtn = document.getElementById('playVideoBtn');
+
+  async function tryPlay(){
+    try{
+      v.muted = true; // لضمان السماح بالتشغيل التلقائي
+      await v.play();
+      hero.classList.remove('show-fallback');
+    }catch(e){
+      // إذا منع المتصفح التشغيل التلقائي، أظهر زر تشغيل
+      hero.classList.add('show-fallback');
+      console.warn('Autoplay blocked:', e);
+    }
+  }
+
+  // شغّل عند الجاهزية
+  if (v.readyState >= 2) { tryPlay(); }
+  else {
+    v.addEventListener('loadeddata', tryPlay, { once:true });
+    // كـ احتياط: حاول مرة بعد أول تفاعل
+    window.addEventListener('click', tryPlay, { once:true, passive:true });
+  }
+
+  // زر احتياطي
+  playBtn.addEventListener('click', tryPlay);
+
+  // إيقاف/تشغيل حسب الظهور على الشاشة لتقليل استهلاك البطارية
+  const io = new IntersectionObserver(([entry])=>{
+    if(!entry) return;
+    if(entry.isIntersecting){ v.play().catch(()=>{}); }
+    else { v.pause(); }
+  }, { threshold: 0.25 });
+  io.observe(hero);
+})();
+</script>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CarRental",
+  "name":"تأجيري",
+  "url":"https://example.com",
+  "areaServed":"SA",
+  "openingHours":"Mo-Su 00:00-23:59",
+  "currenciesAccepted":"SAR",
+  "paymentAccepted":"Cash, Credit Card",
+  "priceRange":"$$",
+  "sameAs": []
+}
+</script>
+</body>
+</html>

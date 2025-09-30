@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>تواصل معنا - تأجير السعودية</title>
+<style>
+  :root{
+    --green:#006C35;
+    --green-700:#065F46;
+    --ink:#1F2937;
+    --paper:#F8F9F7;
+    --muted:#6B7280;
+    --ring: rgba(0,108,53,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Tajawal",system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+  a{color:inherit;text-decoration:none}
+
+  header{background:var(--green);color:#fff;padding:1rem;text-align:center}
+  header h1{margin:0;font-size:1.6rem}
+
+  main{max-width:1100px;margin:auto;padding:2rem 1rem;display:grid;gap:2rem}
+  .contact-info, .contact-form, .map{
+    background:#fff;
+    padding:1.5rem;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+  }
+
+  .contact-info h2, .contact-form h2, .map h2{margin-top:0;color:var(--green-700)}
+  .info-item{margin:.5rem 0;display:flex;gap:.5rem;align-items:center}
+
+  form{display:grid;gap:1rem}
+  label{font-weight:600}
+  input,textarea{
+    width:100%;padding:.7rem;border:1px solid #ddd;border-radius:8px;
+    font-family:inherit;font-size:1rem
+  }
+  input:focus,textarea:focus{outline:3px solid var(--ring);border-color:var(--green)}
+  textarea{min-height:120px;resize:vertical}
+  button{
+    background:linear-gradient(90deg,var(--green),#0a7e44);
+    color:#fff;padding:.8rem 1.4rem;border:none;border-radius:10px;
+    font-weight:700;cursor:pointer;transition:.2s
+  }
+  button:hover{opacity:.9}
+  .success, .error{padding:.8rem;border-radius:8px;font-weight:600}
+  .success{background:#dcfce7;color:#166534}
+  .error{background:#fee2e2;color:#991b1b}
+
+  .map iframe{width:100%;height:300px;border:0;border-radius:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>تواصل معنا</h1>
+  <p>يسعدنا خدمتك والإجابة على استفساراتك</p>
+</header>
+
+<main>
+  <!-- بيانات التواصل -->
+  <section class="contact-info">
+    <h2>معلومات التواصل</h2>
+    <div class="info-item">📍 الرياض، المملكة العربية السعودية</div>
+    <div class="info-item">📞 <a href="tel:+9665XXXXXXX">+966-5-XXXX-XXX</a></div>
+    <div class="info-item">✉️ <a href="mailto:hello@tajir.sa">hello@tajir.sa</a></div>
+  </section>
+
+  <!-- نموذج -->
+  <section class="contact-form">
+    <h2>أرسل رسالة</h2>
+    <form id="contactForm" novalidate>
+      <div>
+        <label for="name">الاسم الكامل</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div>
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div>
+        <label for="phone">رقم الهاتف</label>
+        <input type="tel" id="phone" name="phone" pattern="^05[0-9]{7}$" placeholder="05XXXXXXXX" />
+      </div>
+      <div>
+        <label for="message">الرسالة</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit">إرسال</button>
+      <div id="formMsg"></div>
+    </form>
+  </section>
+
+  <!-- خريطة -->
+  <section class="map">
+    <h2>موقعنا</h2>
+    <!-- خريطة Google (يمكنك وضع موقع شركتك) -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!..." allowfullscreen loading="lazy"></iframe>
+  </section>
+</main>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const msgBox = document.getElementById('formMsg');
+  msgBox.innerHTML = "";
+
+  const name = this.name.value.trim();
+  const email = this.email.value.trim();
+  const message = this.message.value.trim();
+
+  if(!name || !email || !message){
+    msgBox.innerHTML = "<div class='error'>الرجاء تعبئة جميع الحقول المطلوبة</div>";
+    return;
+  }
+
+  // إرسال (يمكنك ربطه بـ backend أو خدمة مثل Formspree)
+  msgBox.innerHTML = "<div class='success'>✅ تم إرسال رسالتك بنجاح، سنعاود الاتصال بك قريبًا</div>";
+  this.reset();
+});
+</script>
+
+</body>
+</html>
